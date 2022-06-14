@@ -1,0 +1,131 @@
+@startuml
+'class datamodel.Customer {
+'- long id
+'- String lastName
+'- String firstName
+'- List<String> contacts
+'+ Long getId()
+'+ Customer setId(long)
+'+ String getLastName()
+'+ String getFirstName()
+'+ String getName()
+'+ Customer setName(String,String)
+'+ Customer setName(String)
+'+ int contactsCount()
+'+ String[] getContacts()
+'+ Customer addContact(String)
+'+ void deleteContact(int)
+'+ void deleteAllContacts()
+'- Customer splitName(String)
+'}
+'class datamodel.Article {
+'- String id
+'- String description
+'- long unitPrice
+'- Currency currency
+'- TAX tax
+'+ String getId()
+'+ Article setId(String)
+'+ String getDescription()
+'+ Article setDescription(String)
+'+ long getUnitPrice()
+'+ Article setUnitPrice(long)
+'+ Currency getCurrency()
+'+ Article setCurrency(Currency)
+'+ TAX getTax()
+'+ Article setTax(TAX)
+'}
+'enum datamodel.Currency {
+'+  EUR
+'+  USD
+'+  GBP
+'+  YEN
+'+  BTC
+'}
+'enum datamodel.TAX {
+'+  TAXFREE
+'+  GER_VAT
+'+  GER_VAT_REDUCED
+'}
+'class datamodel.Order {
+'- String id
+'- Customer customer
+'- Date creationDate
+'- List<OrderItem> items
+'+ String getId()
+'+ Order setId(String)
+'+ Customer getCustomer()
+'+ long getCreationDate()
+'+ Order setCreationDate(long)
+'+ int itemsCount()
+'+ Iterable<OrderItem> getItems()
+'+ Order addItem(Article,int)
+'+ void deleteItem(int)
+'+ void deleteAllItems()
+'+ long getTotalOrderValue()
+'}
+'class datamodel.OrderItem {
+'- Article article
+'- int unitsOrdered
+'+ Article getArticle()
+'+ int getUnitsOrdered()
+'+ void setUnitsOrdered(int)
+'}
+class system.impl.OrderBuilderImpl {
+- DatamodelFactoryImpl factory
++ OrderBuilderImpl buildOrders()
++ OrderBuilderImpl buildMoreOrders()
+}
+
+interface system.OrderBuilder {
+~ OrderBuilder buildOrders()
+~ OrderBuilder buildMoreOrders()
+}
+
+interface system.DatamodelFactory {
+~ Customer createCustomer()
+~ Customer createCustomer(String)
+~ Article createArticle()
+~ Article createArticle(String,long)
+~ Order createOrder(Customer)
+~ List<Customer> getCustomers()
+~ List<Article> getArticles()
+~ List<Order> getOrders()
+~ int customersCount()
+~ int articlesCount()
+~ Optional<Customer> findCustomerById(long)
+~ Optional<Article> findArticleById(String)
+~ Optional<Order> findOrderById(String)
+~ int ordersCount()
+}
+class system.impl.DatamodelFactoryImpl {
+- List<Customer> customers
+- List<Article> articles
+- List<Order> orders
++ Customer createCustomer()
++ Customer createCustomer(String)
++ Article createArticle()
++ Article createArticle(String,long)
++ Order createOrder(Customer)
++ List<Customer> getCustomers()
++ List<Article> getArticles()
++ List<Order> getOrders()
++ int customersCount()
++ int articlesCount()
++ Optional<Customer> findCustomerById(long)
++ Optional<Article> findArticleById(String)
++ Optional<Order> findOrderById(String)
++ int ordersCount()
+- Customer add(Customer)
+- Article add(Article)
+- Order add(Order)
+}
+
+
+system.impl.DatamodelFactoryImpl -r-* system.impl.OrderBuilderImpl
+system.OrderBuilder <|.. system.impl.OrderBuilderImpl : :+implements
+system.DatamodelFactory <|.. system.impl.DatamodelFactoryImpl : :+implements
+'datamodel.Customer ..> system.impl.DatamodelFactoryImpl : :+imports
+'datamodel.Article ..> system.impl.DatamodelFactoryImpl : :+imports
+'datamodel.Order ..> system.impl.DatamodelFactoryImpl : :+imports
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+package "application"{
+
+[DatamodelFactory] -r-* [OrderBuilder]
+
+}
+
+
+package "datamodel"{
+
+[Order] ........> [DatamodelFactory] : :+imports
+[Customer] ..> [DatamodelFactory] : :+imports
+[Article] ..> [DatamodelFactory] : :+imports
+[Article] ..> [OrderBuilder] : :+imports
+[Customer] ...> [OrderBuilder] : :+imports
+[TAX] ..> [OrderBuilder] : :+imports
+}
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+class datamodel.Customer {
+- long id
+- String lastName
+- String firstName
+- List<String> contacts
++ Long getId()
++ Customer setId(long)
++ String getLastName()
++ String getFirstName()
++ String getName()
++ Customer setName(String,String)
++ Customer setName(String)
++ int contactsCount()
++ String[] getContacts()
++ Customer addContact(String)
++ void deleteContact(int)
++ void deleteAllContacts()
+- Customer splitName(String)
+}
+class datamodel.Article {
+- String id
+- String description
+- long unitPrice
+- Currency currency
+- TAX tax
++ String getId()
++ Article setId(String)
++ String getDescription()
++ Article setDescription(String)
++ long getUnitPrice()
++ Article setUnitPrice(long)
++ Currency getCurrency()
++ Article setCurrency(Currency)
++ TAX getTax()
++ Article setTax(TAX)
+}
+enum datamodel.Currency {
++  EUR
++  USD
++  GBP
++  YEN
++  BTC
+}
+enum datamodel.TAX {
++  TAXFREE
++  GER_VAT
++  GER_VAT_REDUCED
+}
+class datamodel.Order {
+- String id
+- Customer customer
+- Date creationDate
+- List<OrderItem> items
++ String getId()
++ Order setId(String)
++ Customer getCustomer()
++ long getCreationDate()
++ Order setCreationDate(long)
++ int itemsCount()
++ Iterable<OrderItem> getItems()
++ Order addItem(Article,int)
++ void deleteItem(int)
++ void deleteAllItems()
++ long getTotalOrderValue()
+}
+class datamodel.OrderItem {
+- Article article
+- int unitsOrdered
++ Article getArticle()
++ int getUnitsOrdered()
++ void setUnitsOrdered(int)
+}
+@enduml
