@@ -1,9 +1,9 @@
 package application;
 
+import system.DatamodelFactory;
 import system.IoC;
 import system.Printer;
 import system.TablePrinter;
-import system.DatamodelFactory;
 import system.OrderBuilder;
 
 
@@ -11,14 +11,14 @@ import system.OrderBuilder;
  * Runnable application class that creates and outputs simple orders using the
  * {@link datamodel} and {@link system} packages after refactoring.
  * <code>
- * <a href="{@docRoot}/index.html">{@value package_info#RootName}</a>.
+ * <a href="{@docRoot}/index.html">{@value application.package_info#RootName}</a>.
  * </code>
  * 
- * @version <code style=color:green>{@value package_info#Version}</code>
- * @author <code style=color:blue>{@value package_info#Author}</code>
+ * @version <code style=color:green>{@value application.package_info#Version}</code>
+ * @author <code style=color:blue>{@value application.package_info#Author}</code>
  */
 
-public class Application_F2 {
+public class Application_G2 {
 
 	/**
 	 * Reference to "Inversion-of-Control" container that manages system component objects.
@@ -26,12 +26,34 @@ public class Application_F2 {
 	private final IoC ioc;
 
 	/**
+	 * Reference to IoC-managed OrderBuilder component that builds sample orders
+	 * using objects from the {@link datamodel} package.
+	 */
+	private final OrderBuilder orderBuilder;
+
+	/**
+	 * Reference to IoC-managed OrderBuilder component that creates instances of
+	 * classes of the {@link datamodel} package.
+	 */
+	private final DatamodelFactory datamodelFactory;
+
+	/**
 	 * Private constructor to initialize local attributes.
 	 */
-	private Application_F2() {
+	private Application_G2() {
 		System.out.println(package_info.RootName + ": " + this.getClass().getSimpleName());
 		//
 		this.ioc = IoC.getInstance();	// obtain ioc-reference from IoC interface
+		String propertyFile = "resources/application.properties";
+		int count = this.ioc.loadProperties(propertyFile);
+		//
+		System.out.println(String.format("\"%s\": %d properties loaded.", propertyFile, count));
+		//
+		this.ioc.getProperties()	// show loaded properties
+			.forEach((k, v) -> System.out.println(String.format(" - %-16s = %s", k, v)));
+		//
+		this.orderBuilder = ioc.getOrderBuilder();
+		this.datamodelFactory = ioc.getDatamodelFactory();
 	}
 
 	/**
@@ -40,7 +62,7 @@ public class Application_F2 {
 	 * @param args arguments passed from command line.
 	 */
 	public static void main(String[] args) {
-		var appInstance = new Application_F2();
+		var appInstance = new Application_G2();
 		appInstance.run();
 	}
 
@@ -50,16 +72,14 @@ public class Application_F2 {
 	 */
 	private void run() {
 		//
-		DatamodelFactory factory = ioc.getDatamodelFactory();
-		OrderBuilder orderBuilder = ioc.getOrderBuilder();
 		orderBuilder
 			.buildOrders()
 			.buildMoreOrders()
 		;
 		//
-		System.out.println("(" + factory.customersCount() + ") Customer objects built.");
-		System.out.println("(" + factory.ordersCount() + ") Article objects built.");
-		System.out.println("(" + factory.articlesCount() + ") Order objects built.");
+		System.out.println("(" + datamodelFactory.customersCount() + ") Customer objects built.");
+		System.out.println("(" + datamodelFactory.articlesCount() + ") Article objects built.");
+		System.out.println("(" + datamodelFactory.ordersCount() + ") Order objects built.");
 
 		StringBuffer sb = new StringBuffer();
 		//
@@ -85,7 +105,7 @@ public class Application_F2 {
 				.row("Bestell-ID", "Bestellungen", "MwSt", "", "Preis", "MwSt", "Gesamt")
 				.line();
 			//
-			printer.printOrders(orderTable, factory.getOrders());
+			printer.printOrders(orderTable, datamodelFactory.getOrders());
 			//
 			System.out.println(sb);
 		}
