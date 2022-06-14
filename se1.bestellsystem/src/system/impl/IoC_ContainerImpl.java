@@ -31,6 +31,7 @@ public final class IoC_ContainerImpl implements IoC {
     private final Printer printer;
     private final DatamodelFactory datamodelFactory;
     private final OrderBuilder orderBuilder;
+    private final OrderBuilder orderBuilderOld;
 
     private final Properties props;
 
@@ -42,9 +43,10 @@ public final class IoC_ContainerImpl implements IoC {
         this.calculator = new CalculatorImpl();
         this.formatter = new FormatterImpl();
         this.printer = new PrinterImpl(calculator, formatter);
-        this.datamodelFactory = new DatamodelFactoryImpl();
-        this.orderBuilder = new OrderBuilderImpl(datamodelFactory);
         this.props = new Properties();
+        this.datamodelFactory = new DatamodelFactoryImpl();
+        this.orderBuilder = new OrderBuilderJSONImpl(datamodelFactory, props);
+        this.orderBuilderOld = new OrderBuilderImpl(datamodelFactory);
     }
 
 
