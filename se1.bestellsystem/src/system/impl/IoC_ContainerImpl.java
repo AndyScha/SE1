@@ -100,13 +100,6 @@ public final class IoC_ContainerImpl implements IoC {
 
     @Override
     public Properties getProperties() {
-        try {
-            props.load(new FileInputStream("/resources/application.properties"));
-//            props.forEach();
-//            props.forEach((k,v) -> System.out.println("Key : " + k + "Value : " + v));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return this.props;
     }
 

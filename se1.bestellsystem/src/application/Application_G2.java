@@ -44,7 +44,7 @@ public class Application_G2 {
 		System.out.println(package_info.RootName + ": " + this.getClass().getSimpleName());
 		//
 		this.ioc = IoC.getInstance();	// obtain ioc-reference from IoC interface
-		String propertyFile = "resources/application.properties";
+		String propertyFile = "se1.bestellsystem/resources/application.properties";
 		int count = this.ioc.loadProperties(propertyFile);
 		//
 		System.out.println(String.format("\"%s\": %d properties loaded.", propertyFile, count));
