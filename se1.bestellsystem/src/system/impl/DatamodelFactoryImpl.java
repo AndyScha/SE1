@@ -14,7 +14,7 @@ import system.DatamodelFactory;
  * @author <code style=color:blue>{@value application.package_info#Author}</code>
  */
 
-public class DatamodelFactoryImpl implements DatamodelFactory {
+class DatamodelFactoryImpl implements DatamodelFactory {
 
 	/**
 	 * Internal lists of Customer, Article and Order objects.

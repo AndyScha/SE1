@@ -1,6 +1,8 @@
 package system;
 
 
+import java.util.Properties;
+
 /**
  * Interface of an "Inversion-of-Control" (IoC) container, which creates and holds
  * system component objects.
@@ -19,6 +21,10 @@ public interface IoC {
 	static IoC getInstance() {
 		return system.impl.IoC_ContainerImpl.getInstance();
 	}
+
+	DatamodelFactory getDatamodelFactory();
+
+	OrderBuilder getOrderBuilder();
 
 
 	/**
@@ -41,5 +47,21 @@ public interface IoC {
 	 * @return reference to singleton Printer instance.
 	 */
 	Printer getPrinter();
+
+	/**
+	 * Getter of system singleton component that contains system properties.
+	 * @return reference to singleton Properties instance.
+	 */
+	Properties getProperties();
+
+	/**
+	 * Load properties from file from propertyFilePath.
+	 *
+	 * @param propertyFilePath path to properties files.
+	 * @return number of properties loaded.
+	 * @throws IllegalArgumentException when propertyFilePath is null or empty "".
+	 */
+	int loadProperties(String propertyFilePath);
+
 
 }

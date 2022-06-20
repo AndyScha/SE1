@@ -3,6 +3,7 @@ package system.impl;
 import datamodel.Article;
 import datamodel.Customer;
 import datamodel.TAX;
+import system.DatamodelFactory;
 import system.OrderBuilder;
 
 
@@ -13,12 +14,12 @@ import system.OrderBuilder;
  * @author <code style=color:blue>{@value application.package_info#Author}</code>
  */
 
-public class OrderBuilderImpl implements OrderBuilder {
+class OrderBuilderImpl implements OrderBuilder {
 
 	/**
 	 * Factory from which objects are built.
 	 */
-	private final DatamodelFactoryImpl factory;
+	private final DatamodelFactory factory;
 
 
 	/**
@@ -26,8 +27,8 @@ public class OrderBuilderImpl implements OrderBuilder {
 	 * 
 	 * @param factory factory from which objects are built.
 	 */
-	public OrderBuilderImpl(DatamodelFactoryImpl factory) {
-		this.factory = factory;
+	public OrderBuilderImpl(DatamodelFactory datamodelFactory) {
+		this.factory = datamodelFactory;
 	}
 
 
