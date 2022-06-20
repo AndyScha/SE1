@@ -10,13 +10,13 @@
 .settings
 
 # IntelliJ
-.iml
-.idea
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/directories
-.idea/**/shelf
+*.iml
+*.idea
+*.idea/**/workspace.xml
+*.idea/**/tasks.xml
+*.idea/**/usage.statistics.xml
+*.idea/**/directories
+*.idea/**/shelf
 
 # BlueJ
 *.ctxt
