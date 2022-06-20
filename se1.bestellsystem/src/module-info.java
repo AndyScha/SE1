@@ -19,4 +19,5 @@ module se1.bestellsystem {
 
 //	requires junit;
 //	requires org.junit.jupiter.api;
+	requires com.fasterxml.jackson.databind;
 }
