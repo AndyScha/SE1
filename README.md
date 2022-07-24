@@ -1,2 +1,1 @@
-# SE1
-Berliner Hochschule Für Technik (BHT) Modul: Software Engineering 1
+# Beuth University of Applied Sciences (BHT) Course: Software Engineering 1
